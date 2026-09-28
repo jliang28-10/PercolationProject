@@ -1,6 +1,8 @@
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
 
+import java.util.Scanner;
+
 public class PercolationStats {
     public int[] thresh;
     public int n;
@@ -44,26 +46,35 @@ public class PercolationStats {
     }
 
     // sample standard deviation of percolation threshold
+    //checked
     public double stddev(){
-        int total = 0;
+        double total = 0;
         for(int i:thresh){
-            total +=(Math.pow(((double)i/(n*n))-mean(),2));
+            total +=  Math.pow(((double)i/(n*n))-mean(),2);
         }
-        return (double) total /(trials-1);
+        return Math.sqrt( total /(trials-1));
     }
 
     // low endpoint of 95% confidence interval
+    //checked
     public double confidenceLo(){
-        return mean()-(1.96*stddev()/(Math.sqrt(trials)));
+        return (this.mean()-(1.96*this.stddev()/(Math.sqrt(trials))));
     }
 
     // high endpoint of 95% confidence interval
+    //checked
     public double confidenceHi(){
-        return mean()+(1.96*stddev()/(Math.sqrt(trials)));
+        return (this.mean()+(1.96*this.stddev()/(Math.sqrt(trials))));
     }
 
     // test client (see below)
     public static void main(String[] args){
-        PercolationStats l = new PercolationStats(200,100);
+        System.out.println("Enter 2 integers, grid size then number of trials");
+        Scanner scan = new Scanner(System.in);
+        PercolationStats p= new PercolationStats(scan.nextInt(), scan.nextInt());
+        System.out.println("Mean = " + p.mean());
+        System.out.println("stddev = "+p.stddev());
+        System.out.println("95% confidence interval = " + "[" + p.confidenceLo()+", "+ p.confidenceHi()+"]");
+
     }
 }

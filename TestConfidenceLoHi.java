@@ -16,6 +16,7 @@ public class TestConfidenceLoHi {
         double hi = large.confidenceHi();
         double mean = large.mean();
         check("confidenceLo < mean for (200,1000)", lo < mean);
+        System.out.println(lo + " " + mean + " "+ hi);
         check("mean < confidenceHi for (200,1000)", mean < hi);
 
         System.out.println("--- bounds are in [0, 1] ---");
@@ -26,7 +27,7 @@ public class TestConfidenceLoHi {
         PercolationStats ten = new PercolationStats(10, 50);
         check("confidenceLo < confidenceHi for (10,50)",
               ten.confidenceLo() < ten.confidenceHi());
-
+        System.out.println(ten.confidenceLo() + " "  + " "+ ten.confidenceHi());
         System.out.println("--- single trial produces NaN interval ---");
         PercolationStats oneTrial = new PercolationStats(10, 1);
         check("confidenceLo is NaN when trials=1", Double.isNaN(oneTrial.confidenceLo()));
